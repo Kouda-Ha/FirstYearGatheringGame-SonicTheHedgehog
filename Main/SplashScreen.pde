@@ -6,7 +6,7 @@ class SplashScreen {
   int yPosTitle; 
   int xPosText; 
   int yPosText; 
-  String instructionText;
+  String splashScreenText;
   boolean hideText; 
 
   //Create constructor
@@ -18,7 +18,7 @@ class SplashScreen {
     this.yPosText = height/2;
 
     //INSTRUCTIONS
-    this.instructionText= "Sonic had his rings stolen! Instructions: Use the arrow keys to move, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings or your score will lessen. Avoid his clones and enemies or game over! You have 60 seconds to try. Clicking the mouse again will restart the level.";
+    this.splashScreenText= "Sonic had his rings stolen! Instructions: Use the arrow keys to move, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings and his Ladybirds or your score will lessen. Avoid his clones or it's game over! You have 60 seconds to try. Clicking the mouse again will restart the level.";
     this.hideText = false; //text will be shown
   }
 
@@ -38,7 +38,7 @@ class SplashScreen {
 
       //Game instructions, position, size, text
       textSize(20); 
-      text(this.instructionText, width/4, height/6, this.xPosText, this.yPosText);
+      text(this.splashScreenText, width/4, height/6, this.xPosText, this.yPosText);
     }
   }
 
@@ -50,12 +50,18 @@ class SplashScreen {
 
 
   //At end of game, display this.
-  void gameOver() {
+  void timesUp() {
     if (this.hideText) {
       //Splash screen overlays once the timer ends
-      this.instructionText = "Game finished! Click mouse to restart!";
+      this.splashScreenText = "Game finished!";
       this.hideText = false;
-      
+    }
+  }
+  void gameOver() {
+    if (this.hideText) {
+      //Splash screen overlays if Eggman touches you
+      this.splashScreenText = "Eggman caught you! Game over!";
+      this.hideText = false;
     }
   }
 }

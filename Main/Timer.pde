@@ -4,11 +4,11 @@ class Timer {
   int startTime;
   int timeUsed;
   int totalTime;
-  int boxWidth; //score box width
-  int boxHeight; //score box height
-  int xPosition; //x position ofs score box
-  int yPosition; //y position of box
-
+  //Score box's width, height, x and y position
+  int boxWidth;
+  int boxHeight;
+  int xPosition;
+  int yPosition;
 
   Timer() {
     //time in milliseconds
@@ -18,9 +18,8 @@ class Timer {
   }
 
   void update() {
-    //if the elapsed time is less than the total time, update the elapsed time
+    //if the time used is less than the total, update the it
     if (this.totalTime > this.timeUsed) {
-      //elapsed time is difference between current millis and start time
       this.timeUsed = millis() - this.startTime;
     }
     //Timer displayed bottom screen, text colour, text size.

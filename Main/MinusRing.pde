@@ -9,7 +9,7 @@ class MinusRing extends Ring {
     diameter = 50;
     speed = 9;
     ringColour = color(255, 0, 0);
-    value = -1; // Removes ring, instead of adding. Making it a bad collectable rather than good collectable.
+    value = -1; // Removes ring from total collected, instead of adding. Making it a bad collectable rather than good collectable.
   
   }
 }

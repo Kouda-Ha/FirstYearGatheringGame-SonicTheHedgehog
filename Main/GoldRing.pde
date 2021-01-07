@@ -6,11 +6,11 @@ class GoldRing extends Ring {
 
     super();
 
-    //Gold coind's size, speed, colour, value
+    //Gold rings's size, speed, colour, value
     diameter = 50;
     speed = 9;
     ringColour = color(250, 157, 8);
-    value = 1;
+    value = 1; //Adds a ring to your collected amount, making it a good collectable.
    
   }
 }
