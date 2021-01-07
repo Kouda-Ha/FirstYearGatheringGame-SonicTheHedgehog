@@ -12,7 +12,7 @@ Enemy2 enemy3, enemy4;
 Timer gameTimer;
 int time; 
 int wait;
-ArrayList<Coin> myCoins;  
+ArrayList<Ring> myRings;  
 int score;
 Score scorePlayer;
 
@@ -33,7 +33,7 @@ void setup() {
   time = millis();
   wait = 1000;
   //polymorphism example, coins added to list as they are created
-  myCoins = new ArrayList<Coin>();
+  myRings = new ArrayList<Ring>();
   scorePlayer = new Score();
 }  
 
@@ -47,7 +47,7 @@ void draw() {
   enemy3.update();
   enemy4.update();
   gameTimer.update();
-  coinGenerator();
+  ringGeneration();
   splashScreen.update();
 
   if (player.crash(enemy1) || player.crash(enemy2) ) { // || player.crash(enemy3) || player.crash(enemy4))
@@ -58,24 +58,24 @@ void draw() {
 
 
   //run through all coins,  attempt to collect each coin and then update
-  for (int numCoins = myCoins.size()-1; numCoins >= 0; numCoins--) { 
-    Coin currentCoin= myCoins.get(numCoins);
-    collectCoin(currentCoin);
-    currentCoin.update();
+  for (int numOfRings = myRings.size()-1; numOfRings >= 0; numOfRings--) { 
+    Ring currentRing= myRings.get(numOfRings);
+    collectRing(currentRing);
+    currentRing.update();
   }
   scorePlayer.update();
 }
 
 //create a Collect Coin procedure with a parameter collectCoin
-void collectCoin(Coin collectCoin) {
+void collectRing(Ring collectRing) {
 
   //Local variables
-  float coinX= collectCoin.getXPosition(); 
-  float coinY = collectCoin.getYPosition(); 
+  float ringX= collectRing.getXPosition(); 
+  float ringY = collectRing.getYPosition(); 
 
-  float relativeX = coinX - player.x;
-  float relativeY = coinY - player.y;
-  float radius = collectCoin.getDiameter()/2;
+  float relativeX = ringX - player.x;
+  float relativeY = ringY - player.y;
+  float radius = collectRing.getDiameter()/2;
 
   //Coin collection boundary
   if (
@@ -84,24 +84,24 @@ void collectCoin(Coin collectCoin) {
     ) {
 
     //remove coin from array list so that it will not be updated and will disappear when collected
-    myCoins.remove(collectCoin);
+    myRings.remove(collectRing);
     if (gameTimer.timeRemaining() > 0) {
 
       //add coin value to the player's score
-      score += collectCoin.getValue();
+      score += collectRing.getValue();
     }
   }
 }
 
 //Method: Generating the good and bad coins. 
-void coinGenerator() {
+void ringGeneration() {
   //Adds coins until game ends
   if (gameTimer.timeRemaining() > 0) {
 
     //and if the elapsed time is greater than how long program waits to generate coins, add coins
     if (millis() - time >= wait) {
-      myCoins.add(new Gold());
-      myCoins.add(new MinusCoin());
+      myRings.add(new GoldRing());
+      myRings.add(new MinusRing());
       time = millis();
     }
   } 

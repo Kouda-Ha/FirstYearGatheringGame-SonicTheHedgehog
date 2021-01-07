@@ -19,7 +19,7 @@ class Score {
   //create update method to display score box
   void update() {
     textSize(50);
-    //display score (global variable) in the center of score box
+    //Score displayed in the center of invisible score box
     text(score, this.xPos + (boxWidth/2), this.yPos + boxHeight/2);
   }
 }

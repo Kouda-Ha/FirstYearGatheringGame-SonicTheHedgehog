@@ -18,7 +18,7 @@ class SplashScreen {
     this.yPosText = height/2;
 
     //INSTRUCTIONS
-    this.instructionText= "Sonic lost his rings on the freeway. Instructions: Use the arrow keys to move, collect the Gold Rings to increase your score. Avoid the Dr. Eggman's Red Rings or your score will lessen. Avoid his clones or game over! You have 60 seconds to try. Clicking the mouse again will restart the level.";
+    this.instructionText= "Sonic had his rings stolen! Instructions: Use the arrow keys to move, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings or your score will lessen. Avoid his clones and enemies or game over! You have 60 seconds to try. Clicking the mouse again will restart the level.";
     this.hideText = false; //text will be shown
   }
 

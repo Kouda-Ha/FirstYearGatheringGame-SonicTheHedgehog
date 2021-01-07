@@ -2,7 +2,7 @@
 class Player {
 
 
-  //The animation slides for Tails, enemy.
+  //The animation slides for Tails, player.
   PImage img0 = loadImage("up.png");
   PImage img1 = loadImage("front.png");
   PImage img2 = loadImage("left.png");
@@ -36,7 +36,8 @@ class Player {
   boolean crash(Enemy1 enemy) {
     return abs(this.x-enemy.x) < 91 && abs(this.y - enemy.y) < 44;
   }
-  //Player movement: Only move when an arrow key is pressed.
+  //Player movement: Only move when an arrow key is pressed
+  //Display specific picture when key pressed to simulate animation
   public  void keyPressed()
   {
     if (keyPressed == true)
