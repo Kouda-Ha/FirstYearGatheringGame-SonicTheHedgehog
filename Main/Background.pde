@@ -1,16 +1,14 @@
+//Static background image, originally scrolling but changed to the town image as the appearance improved overall
+
 class Background {
 
   public void drawBackground()
   {
     //Background image
     background = loadImage("backGround3.png");
+    //Size it to fit screen and positioned
     background.resize(width, height);
-
-    //Background movement
     image(background, 0, y);
     image(background, 0, y+background.height);
-    //y -=4;
-    //if (y == -background.height)
-    //  y=0;
   }
 }

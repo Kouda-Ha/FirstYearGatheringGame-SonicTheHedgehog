@@ -2,19 +2,17 @@
 // Sprite sheet used: https://www.deviantart.com/winstontheechidna/art/Sonic-XG-Tails-Sprite-Sheet-698275178
 
 class Player {
-
+  //Attributes
+  int x =0;
+  int y =0;
 
   //The animation slides for Tails, player. Pressing keys changes which is shown.
   PImage img0 = loadImage("up.png");
   PImage img1 = loadImage("front.png");
   PImage img2 = loadImage("left.png");
   PImage img3 = loadImage("right.png");
-
-  int x =0;
-  int y =0;
   PImage img4 = loadImage("idle1.png"); // Resting position to be set to default when keys NOT pressed
   PImage img5 = loadImage("idle2.png"); // blank image is used for hit box
-
 
   Player(int x, int y)
   {

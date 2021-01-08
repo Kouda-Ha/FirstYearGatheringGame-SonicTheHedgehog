@@ -1,30 +1,28 @@
-//MAIN MENU / INSTRUCTIONS / SPLASH SCREEN 
+//HOW TO PLAY / SPLASH SCREEN 
 class SplashScreen { 
 
-  //declare attributes of Game Instructions
-  int xPosTitle; 
-  int yPosTitle; 
-  int xPosText; 
-  int yPosText; 
+  //declare attributes of Game Title and "How to Play"
+  int xPosGameTitle, yPosGameTitle; 
+  int xPosHowToPlay, yPosHowToPlay; 
   String splashScreenText;
   boolean hideText; 
 
   //Create constructor
   SplashScreen() {
     //initialize attributes
-    this.xPosTitle = width/2;
-    this.yPosTitle = 0 + height/8;
-    this.xPosText= width/2;
-    this.yPosText = height/2;
+    this.xPosGameTitle = width/2;
+    this.yPosGameTitle = height/8;
+    this.xPosHowToPlay= width/3;
+    this.yPosHowToPlay = height/2;
 
     //INSTRUCTIONS
-    this.splashScreenText= "Sonic had his rings stolen! Instructions: Use the arrow keys to move, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings and his Ladybirds or your score will lessen. Avoid his clones or it's game over! You have 60 seconds to try. Clicking the mouse again will restart the level.";
+    this.splashScreenText= "Sonic had his rings stolen! How to Play: Move with arrow keys, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings and his Ladybirds or your score will lessen. Avoid his clones or it's game over! You have 60 seconds to try. Clicking the mouse again will restart the level.";
     this.hideText = false; //text will be shown
   }
 
   void update() {
-
     if (!this.hideText) {
+
       //A background colour for before game start
       background(211, 211, 211);
 
@@ -34,11 +32,11 @@ class SplashScreen {
 
       //Game title, top centre.
       textSize(50); 
-      text("Rings for Sonic!", this.xPosTitle, this.yPosTitle); 
+      text("Rings for Sonic!", this.xPosGameTitle, this.yPosGameTitle); 
 
       //Game instructions, position, size, text
       textSize(20); 
-      text(this.splashScreenText, width/4, height/6, this.xPosText, this.yPosText);
+      text(this.splashScreenText, this.xPosHowToPlay, this.yPosHowToPlay, this.xPosHowToPlay, this.yPosHowToPlay);
     }
   }
 
@@ -48,7 +46,6 @@ class SplashScreen {
     this.hideText = true;
   }
 
-
   //At end of game, display this.
   void timesUp() {
     if (this.hideText) {
@@ -57,6 +54,7 @@ class SplashScreen {
       this.hideText = false;
     }
   }
+
   void gameOver() {
     if (this.hideText) {
       //Splash screen overlays if Eggman touches you

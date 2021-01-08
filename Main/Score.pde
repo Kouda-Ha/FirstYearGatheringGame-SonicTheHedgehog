@@ -1,25 +1,26 @@
 // Score is bottom right of the screen
 class Score { 
 
-  //declared attributes
-  int xPos; //x position ofs score box
-  int yPos; //y position of box
-  int boxWidth; //score box width
-  int boxHeight; //score box height
+  //Attributes: Position, size
+  int x, y; 
+  int scoreTextWidth; //score box width
+  int scoreTextHeight; //score box height
 
   //create constructor
   Score() {   
+
     //initialize attributes
-    this.boxWidth = 100;
-    this.boxHeight = 100;
-    this.xPos = width-this.boxWidth;
-    this.yPos = height-this.boxHeight;
+    this.scoreTextWidth = 100;
+    this.scoreTextHeight = 100;
+    this.x = width-this.scoreTextWidth;
+    this.y = height-this.scoreTextHeight;
   }
 
   //create update method to display score box
   void update() {
     textSize(50);
+
     //Score displayed in the center of invisible score box
-    text(score, this.xPos + (boxWidth/2), this.yPos + boxHeight/2);
+    text(score, this.x + (scoreTextWidth/2), this.y + scoreTextHeight/2);
   }
 }

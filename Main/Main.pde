@@ -13,13 +13,10 @@ int gameMode = FINISHED;
 int spawnTimer = 0;
 int score;
 Score scorePlayer;
-
 Player player;
 Enemy1 enemy1, enemy2; 
-
 ArrayList<Ring> myRings = new ArrayList();
 ArrayList<Enemy2> enemy2List = new ArrayList();
-
 int time; 
 int wait;
 
@@ -27,25 +24,27 @@ int wait;
 //Setting up game
 void setup() {
   size (900, 900);
+
   //capped framerate to 60fps to stop lag
   frameRate(60);
+
   //create new objects; player, enemies, etc
   splashScreen = new SplashScreen();
   drawBackground = new Background();
   player = new Player(width/2, height-25);  
   enemy1 = new Enemy1(850, (int)random(380));
   enemy2 = new Enemy1(875, (int)random(380));
-  //  enemy3 = new Enemy2(850, (int)random(380));
-  //  enemy4 = new Enemy2(850, (int)random(380));
 
   //loops 5 times = 5 iterations
   for (int i = 0; i < 5; i++) {
     enemy2List.add(new Enemy2(width, (int)random(380))); //so int rand is casting, we're adding Ladybirds to level
   }
+
   print(enemy2List.size()); // will show size of enemy2 ladybird lists
   gameTimer = new Timer();
   time = millis();
   wait = 1000;
+
   //polymorphism example, Rings (Gold OR Minus) added to list as they are created
   myRings = new ArrayList<Ring>();
   scorePlayer = new Score();
@@ -80,7 +79,6 @@ void draw() {
       }
     }
 
-
     //run through all coins,  attempt to collect each coin and then update
     for (int numOfRings = myRings.size()-1; numOfRings >= 0; numOfRings--) { 
       Ring currentRing= myRings.get(numOfRings);
@@ -90,13 +88,30 @@ void draw() {
     scorePlayer.update();
   }
 }
-//create a Collect Coin procedure with a parameter collectCoin
+
+//Method: Generating the good and bad rings. 
+void ringGeneration() {
+  //Adds rings until game ends
+  if (gameTimer.timeRemaining() > 0) {
+    if (millis() - time >= wait) {
+      myRings.add(new GoldRing());
+      myRings.add(new MinusRing());
+      time = millis();
+    }
+  } 
+
+  //Display game over once timer hits zero
+  else {
+    splashScreen.timesUp();
+  }
+}
+
+//Procedure: Collecting a Ring (good or bad)
 void collectRing(Ring collectRing) {
 
   //Local variables
   float ringX= collectRing.getXPosition(); 
   float ringY = collectRing.getYPosition(); 
-
   float relativeX = ringX - player.x;
   float relativeY = ringY - player.y;
   float radius = collectRing.getDiameter()/2;
@@ -117,41 +132,22 @@ void collectRing(Ring collectRing) {
   }
 }
 
-//Method: Generating the good and bad rings. 
-void ringGeneration() {
-  //Adds rings until game ends
-  if (gameTimer.timeRemaining() > 0) {
-    if (millis() - time >= wait) {
-      myRings.add(new GoldRing());
-      myRings.add(new MinusRing());
-      time = millis();
-    }
-    
-  } 
-
-  //Display game over once timer hits zero
-  else {
-    splashScreen.timesUp();
-  }
-}
-
 //Method: Starts game, removes overlay splash screen
 void startGame() {
   gameMode = PLAYING;
   splashScreen.remove();
 }
 
+//Method: Game over
+void gameOver() {
+  gameMode = FINISHED;
+  splashScreen.gameOver();
+}
+
 //Method: Reset timer and score
 void resetGame() {
   gameTimer.reset();
   score = 0;
-}
-
-//Method: Game over
-void gameOver() {
-
-  gameMode = FINISHED;
-  splashScreen.gameOver();
 }
 
 //Method: Clicking will start and/or restart the timer/game score/game
