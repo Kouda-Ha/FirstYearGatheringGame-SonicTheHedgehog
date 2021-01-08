@@ -5,7 +5,7 @@ class Enemy2 {
 
   int x, y;
   int counter;
-
+ 
   //The animation slides for Enemy2, Ladybird enemy
   PImage img1 = loadImage("enemy202.png");
   PImage img2 = loadImage("enemy201.png");

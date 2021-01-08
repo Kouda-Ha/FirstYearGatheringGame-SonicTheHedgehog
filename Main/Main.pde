@@ -40,7 +40,6 @@ void setup() {
   for (int i = 0; i < 3; i++) {
     enemy2List.add(new Enemy2(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
   }
-  
 
   print(enemy2List.size()); // will show size of enemy2 ladybird lists
   gameTimer = new Timer();
@@ -80,9 +79,10 @@ void draw() {
 
 
     //IF you touch Eggman clones, game will end
-    if (player.crash(enemy1) || player.crash(enemy2) ) {
+    if (player.crash(enemy1) || player.crash(enemy2)) {
       splashScreen.gameOver();
     }
+    
   }
 
   //run through all coins,  attempt to collect each coin and then update
