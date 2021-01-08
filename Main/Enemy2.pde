@@ -21,9 +21,16 @@ class Enemy2 {
     render();
   }
   // X and Y declared so it apears to be wiggling randomly across the level
+  // The ladybirds will get to the bottom of the screen then teleport back to the top of the screen
+  // giving the appearance of despawning and respawning but it is always the same 5 ladybirds enemies.
   void move() {
-    y += random(5, 15);
-    x += random(-25, 5);
+    if (y<900) {
+      x -= random(2, 10);
+      y += random(2, 10);
+    } else {
+        x = 900;
+        y =0;      
+    }
   }
 
   //Render to screen, play images every 10 frames to make ladybird appear to blink and become wide-eyed
@@ -38,7 +45,7 @@ class Enemy2 {
     } else { 
       counter=0;
     }
-
     counter++;
   }
+
 }

@@ -23,8 +23,14 @@ class Enemy1 {
     render();
   }
 
+  // The Eggmen clones will get to the far left side of the screen then teleport back to the right side of the screen
+  // giving the appearance of despawning and respawning but it is always the same 2 Dr Eggmen clone enemies.
   void move() {
-    x -= random(2, 10);
+    if (x>0) {
+      x -= random(2, 10);
+    } else {
+        x=900;
+    }
   }
 
   //Render to screen, make Dr Eggman clones fly his ship and both his expression and the ship change slightly every 10 frames, making him animated

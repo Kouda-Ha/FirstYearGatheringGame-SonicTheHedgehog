@@ -19,6 +19,7 @@ ArrayList<Ring> myRings = new ArrayList();
 ArrayList<Enemy2> enemy2List = new ArrayList();
 int time; 
 int wait;
+int speed;
 
 
 //Setting up game
@@ -31,14 +32,15 @@ void setup() {
   //create new objects; player, enemies, etc
   splashScreen = new SplashScreen();
   drawBackground = new Background();
-  player = new Player(width/2, height-25);  
-  enemy1 = new Enemy1(850, (int)random(380));
-  enemy2 = new Enemy1(875, (int)random(380));
+  player = new Player(width/2, height-50);  
+  enemy1 = new Enemy1((int)random(600), (int)random(600));
+  enemy2 = new Enemy1((int)random(600), (int)random(600));
 
-  //loops 5 times = 5 iterations
-  for (int i = 0; i < 5; i++) {
-    enemy2List.add(new Enemy2(width, (int)random(380))); //so int rand is casting, we're adding Ladybirds to level
+  //loops 3 times = 3 iterations
+  for (int i = 0; i < 3; i++) {
+    enemy2List.add(new Enemy2(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
   }
+  
 
   print(enemy2List.size()); // will show size of enemy2 ladybird lists
   gameTimer = new Timer();
@@ -53,11 +55,13 @@ void setup() {
 void draw() {
   splashScreen.update();
   if (gameMode == PLAYING) {
+    if(spawnTimer <= 0){
     spawnTimer++; //add 1 to spawn timer
+    }
     if (spawnTimer%60 == 0) { //% modulator
       enemy2List.add(new Enemy2(width, (int)random(380))); //so random int is casting, adding Ladybird enemy to game
     }
-
+    
     drawBackground.drawBackground();
     player.render();
     player.keyPressed();
@@ -70,24 +74,26 @@ void draw() {
 
     for (int i=0; i<enemy2List.size(); i++) {
       Enemy2 currentEnemy2 = enemy2List.get(i);
-      text(i, currentEnemy2.x, currentEnemy2.y-30);
+      text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
       currentEnemy2.update();
-
-      //IF you touch Eggman clones, game will end
-      if (player.crash(enemy1) || player.crash(enemy2) ) {
-        splashScreen.gameOver();
-      }
     }
 
-    //run through all coins,  attempt to collect each coin and then update
-    for (int numOfRings = myRings.size()-1; numOfRings >= 0; numOfRings--) { 
-      Ring currentRing= myRings.get(numOfRings);
-      collectRing(currentRing);
-      currentRing.update();
+
+    //IF you touch Eggman clones, game will end
+    if (player.crash(enemy1) || player.crash(enemy2) ) {
+      splashScreen.gameOver();
     }
-    scorePlayer.update();
   }
+
+  //run through all coins,  attempt to collect each coin and then update
+  for (int numOfRings = myRings.size()-1; numOfRings >= 0; numOfRings--) { 
+    Ring currentRing= myRings.get(numOfRings);
+    collectRing(currentRing);
+    currentRing.update();
+  }
+  scorePlayer.update();
 }
+
 
 //Method: Generating the good and bad rings. 
 void ringGeneration() {
