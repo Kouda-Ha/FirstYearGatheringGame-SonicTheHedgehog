@@ -1,8 +1,10 @@
+// Player is Tails sprite, referenced in READ ME and below
+// Sprite sheet used: https://www.deviantart.com/winstontheechidna/art/Sonic-XG-Tails-Sprite-Sheet-698275178
 
 class Player {
 
 
-  //The animation slides for Tails, player.
+  //The animation slides for Tails, player. Pressing keys changes which is shown.
   PImage img0 = loadImage("up.png");
   PImage img1 = loadImage("front.png");
   PImage img2 = loadImage("left.png");
@@ -10,8 +12,8 @@ class Player {
 
   int x =0;
   int y =0;
-  PImage img4 = loadImage("idle1.png");
-  PImage img5 = loadImage("idle2.png");
+  PImage img4 = loadImage("idle1.png"); // Resting position to be set to default when keys NOT pressed
+  PImage img5 = loadImage("idle2.png"); // blank image is used for hit box
 
 
   Player(int x, int y)
@@ -22,15 +24,17 @@ class Player {
   void render()
   {
     //Player default image
-    image(img5, x, y);
-    rect(x,y,width(),height());
+    image(img4, x, y); // Tails idle image
+    noFill();
+    noStroke();
+    rect(x,y,width(),height()); //hit box (blank 'idle2' image5)
   }
 
   int width() {
-    return img4.width;
+    return img5.width; // (idle2 image5)
   }
   int height() {
-    return img4.height;
+    return img5.height; //(idle2 image5)
   }
 // this one being function returns value
   boolean crash(Enemy1 enemy) {
