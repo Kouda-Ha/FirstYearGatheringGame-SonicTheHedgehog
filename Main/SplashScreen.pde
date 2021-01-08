@@ -34,7 +34,7 @@ class SplashScreen {
 
       //Game title, top centre.
       textSize(50); 
-      text("Collect Sonic's Rings!", this.xPosTitle, this.yPosTitle); 
+      text("Rings for Sonic!", this.xPosTitle, this.yPosTitle); 
 
       //Game instructions, position, size, text
       textSize(20); 

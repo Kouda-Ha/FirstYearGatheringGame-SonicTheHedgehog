@@ -18,7 +18,7 @@ class Timer {
   }
 
   void update() {
-    //if the time used is less than the total, update the it
+    //if the time used is less than the total, update it
     if (this.totalTime > this.timeUsed) {
       this.timeUsed = millis() - this.startTime;
     }

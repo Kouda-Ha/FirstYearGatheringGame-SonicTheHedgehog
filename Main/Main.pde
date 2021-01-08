@@ -9,14 +9,13 @@ Background drawBackground;
 Timer gameTimer;
 final int PLAYING = 0; //playing state
 final int FINISHED = 1; //finished state
-int gameMode = PLAYING; //current state recorded
+int gameMode = FINISHED;
 int spawnTimer = 0;
 int score;
 Score scorePlayer;
 
 Player player;
 Enemy1 enemy1, enemy2; 
-//Enemy2 enemy3, enemy4;
 
 ArrayList<Ring> myRings = new ArrayList();
 ArrayList<Enemy2> enemy2List = new ArrayList();
@@ -41,7 +40,7 @@ void setup() {
 
   //loops 5 times = 5 iterations
   for (int i = 0; i < 5; i++) {
-    enemy2List.add(new Enemy2(width, (int)random(380))); //so int rand is casting, we're adding Ladybirds to thingy
+    enemy2List.add(new Enemy2(width, (int)random(380))); //so int rand is casting, we're adding Ladybirds to level
   }
   print(enemy2List.size()); // will show size of enemy2 ladybird lists
   gameTimer = new Timer();
@@ -53,6 +52,7 @@ void setup() {
 }  
 
 void draw() {
+  splashScreen.update();
   if (gameMode == PLAYING) {
     spawnTimer++; //add 1 to spawn timer
     if (spawnTimer%60 == 0) { //% modulator
@@ -78,7 +78,6 @@ void draw() {
       if (player.crash(enemy1) || player.crash(enemy2) ) {
         splashScreen.gameOver();
       }
-    
     }
 
 
@@ -127,6 +126,7 @@ void ringGeneration() {
       myRings.add(new MinusRing());
       time = millis();
     }
+    
   } 
 
   //Display game over once timer hits zero
@@ -137,6 +137,7 @@ void ringGeneration() {
 
 //Method: Starts game, removes overlay splash screen
 void startGame() {
+  gameMode = PLAYING;
   splashScreen.remove();
 }
 
@@ -148,12 +149,12 @@ void resetGame() {
 
 //Method: Game over
 void gameOver() {
+
   gameMode = FINISHED;
   splashScreen.gameOver();
-  
 }
 
-//Clicking will start and/or restart the timer/game score/game
+//Method: Clicking will start and/or restart the timer/game score/game
 void mouseClicked() {
   startGame();
   resetGame();
