@@ -33,8 +33,8 @@ void setup() {
   splashScreen = new SplashScreen();
   drawBackground = new Background();
   player = new Player(width/2, height-50);  
-  enemy1 = new Enemy1((int)random(600), (int)random(600));
-  enemy2 = new Enemy1((int)random(600), (int)random(600));
+  // enemy1 = new Enemy1((int)random(600), (int)random(600));
+  // enemy2 = new Enemy1((int)random(600), (int)random(600));
 
   //loops 3 times = 3 iterations
   for (int i = 0; i < 3; i++) {
@@ -54,13 +54,12 @@ void setup() {
 void draw() {
   splashScreen.update();
   if (gameMode == PLAYING) {
-    if(spawnTimer <= 0){
-    spawnTimer++; //add 1 to spawn timer
+    if (spawnTimer <= 0) {
+      spawnTimer++; //add 1 to spawn timer
     }
     if (spawnTimer%60 == 0) { //% modulator
       enemy2List.add(new Enemy2(width, (int)random(380))); //so random int is casting, adding Ladybird enemy to game
     }
-    
     drawBackground.drawBackground();
     player.render();
     player.keyPressed();
@@ -68,7 +67,6 @@ void draw() {
     enemy2.update(); 
     gameTimer.update();
     ringGeneration();
-    splashScreen.update();
 
 
     for (int i=0; i<enemy2List.size(); i++) {
@@ -76,13 +74,12 @@ void draw() {
       text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
       currentEnemy2.update();
     }
-
+    splashScreen.update();
 
     //IF you touch Eggman clones, game will end
     if (player.crash(enemy1) || player.crash(enemy2)) {
       splashScreen.gameOver();
     }
-    
   }
 
   //run through all coins,  attempt to collect each coin and then update
@@ -138,26 +135,13 @@ void collectRing(Ring collectRing) {
   }
 }
 
-//Method: Starts game, removes overlay splash screen
-void startGame() {
-  gameMode = PLAYING;
-  splashScreen.remove();
-}
-
-//Method: Game over
-void gameOver() {
-  gameMode = FINISHED;
-  splashScreen.gameOver();
-}
-
-//Method: Reset timer and score
-void resetGame() {
-  gameTimer.reset();
-  score = 0;
-}
-
 //Method: Clicking will start and/or restart the timer/game score/game
 void mouseClicked() {
-  startGame();
-  resetGame();
+  splashScreen.startGame();
+  splashScreen.resetGame();
+  player.render();
+  player.x = width/2;
+  player.y = height-50;
+  enemy1 = new Enemy1((int)random(600), (int)random(600));
+  enemy2 = new Enemy1((int)random(600), (int)random(600));
 }

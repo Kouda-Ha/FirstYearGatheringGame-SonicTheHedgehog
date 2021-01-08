@@ -45,21 +45,35 @@ class SplashScreen {
   void remove() {
     this.hideText = true;
   }
+//Method: Starts game, removes overlay splash screen
+void startGame() {
+  gameMode = PLAYING;
+  splashScreen.remove();
+}
 
-  //At end of game, display this.
+
+//Method: Reset timer and score
+void resetGame() {
+  gameTimer.reset();
+  score = 0;
+}
+
+  //Method: At end of game, display this.
   void timesUp() {
     if (this.hideText) {
       //Splash screen overlays once the timer ends
-      this.splashScreenText = "Game finished!";
+      this.splashScreenText = "Game finished! Click to have another go!";
       this.hideText = false;
     }
   }
 
+  //Method: Game over
   void gameOver() {
     if (this.hideText) {
       //Splash screen overlays if Eggman touches you
-      this.splashScreenText = "Eggman caught you! Game over!";
+      this.splashScreenText = "Eggman caught you! Game over! Click your mouse to restart and try again!";
       this.hideText = false;
+      gameMode = FINISHED;
     }
   }
 }
