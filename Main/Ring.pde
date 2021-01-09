@@ -1,10 +1,8 @@
 //Both the Enemy AND collectable are coins, so I made Coin class so Enemy and Gold can extend from this.
 
-class Ring { 
+class Ring extends Collidable { 
 
-  //Attributes: Position, size, speed, colour, value
-  float x, y;
-  float diameter;
+  //Attributes: speed, colour, value
   float speed;
   color ringColour;
   float value;
@@ -37,29 +35,30 @@ class Ring {
 
   //Function: Return Ring size
   float getDiameter() {
-    return this.diameter;
+    return this.radius*2;
   }
 
   //Method: Update rings
   void update() {
-
-    //Ring colour = ringColor. Gold's is set to yellow, MinusRing is set to red.
-    fill(this.ringColour);
-
-    //Draw ring
-    ellipse(this.x, this.y, this.diameter, this.diameter);
-    fill(211, 211, 211);
-    ellipse(this.x, this.y, this.diameter-25, this.diameter-25);
-
-    fill(0);
-
+    
     //Remove ring if out of bounds
-    if (y > height + diameter) {
+    if (y > height + radius) {
       myRings.remove(this);
     } else {
 
       //Else add speed/don't despawn
-      this.y += speed;
+      this.y += frameTime * globalSpeed*speed;
     }
+    
+    //Ring colour = ringColor. Gold's is set to yellow, MinusRing is set to red.
+    super.render();
+    
+    ellipseMode(RADIUS); 
+    stroke(this.ringColour);
+    strokeWeight(15);
+    noFill();
+    // draw these offset so the collision code will still work
+    //   (the collision code assumes it's dealing with a sprite with XY values in the top left)
+    ellipse(this.x+this.radius, this.y+this.radius, (this.radius-7) * abs(sin(frameTimeOld/200.0)), this.radius-7);
   }
 }

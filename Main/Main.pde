@@ -14,27 +14,29 @@ int spawnTimer = 0;
 int score;
 Score scorePlayer;
 Player player;
-Enemy1 enemy1, enemy2; 
+Enemy1 eggman1, eggman2; 
 ArrayList<Ring> myRings = new ArrayList();
 ArrayList<Enemy2> enemy2List = new ArrayList();
-int time; 
+int time;
 int wait;
-int speed;
+int globalSpeed;
+boolean drawHitBoxes = false;
+
+float frameTime;
+int frameTimeOld;
 
 
 //Setting up game
 void setup() {
   size (900, 900);
 
-  //capped framerate to 60fps to stop lag
-  frameRate(60);
+  globalSpeed = 300;
+  frameTimeOld = millis();
 
   //create new objects; player, enemies, etc
   splashScreen = new SplashScreen();
   drawBackground = new Background();
   player = new Player(width/2, height-50);  
-  // enemy1 = new Enemy1((int)random(600), (int)random(600));
-  // enemy2 = new Enemy1((int)random(600), (int)random(600));
 
   //loops 3 times = 3 iterations
   for (int i = 0; i < 3; i++) {
@@ -52,6 +54,10 @@ void setup() {
 }  
 
 void draw() {
+  int frameTimeNew = millis();
+  frameTime = (frameTimeNew - frameTimeOld)/1000.0f;
+  frameTimeOld = frameTimeNew;
+
   splashScreen.update();
   if (gameMode == PLAYING) {
     if (spawnTimer <= 0) {
@@ -62,22 +68,21 @@ void draw() {
     }
     drawBackground.drawBackground();
     player.render();
-    player.keyPressed();
-    enemy1.update();
-    enemy2.update(); 
+    eggman1.update();
+    eggman2.update(); 
     gameTimer.update();
     ringGeneration();
 
-
     for (int i=0; i<enemy2List.size(); i++) {
       Enemy2 currentEnemy2 = enemy2List.get(i);
-      text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
+      //   text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
+      currentEnemy2.collisionTest(player);
       currentEnemy2.update();
     }
     splashScreen.update();
 
     //IF you touch Eggman clones, game will end
-    if (player.crash(enemy1) || player.crash(enemy2)) {
+    if (eggman1.collisionTest(player) || eggman2.collisionTest(player)) {
       splashScreen.gameOver();
     }
   }
@@ -85,7 +90,15 @@ void draw() {
   //run through all coins,  attempt to collect each coin and then update
   for (int numOfRings = myRings.size()-1; numOfRings >= 0; numOfRings--) { 
     Ring currentRing= myRings.get(numOfRings);
-    collectRing(currentRing);
+    //  collectRing(currentRing);
+    if (currentRing.collisionTest(player) == true) {
+      myRings.remove(currentRing);
+      if (gameTimer.timeRemaining() > 0) {
+
+        //add ring value to the player's score
+        score += currentRing.getValue();
+      }
+    }
     currentRing.update();
   }
   scorePlayer.update();
@@ -142,6 +155,18 @@ void mouseClicked() {
   player.render();
   player.x = width/2;
   player.y = height-50;
-  enemy1 = new Enemy1((int)random(600), (int)random(600));
-  enemy2 = new Enemy1((int)random(600), (int)random(600));
+  eggman1 = new Enemy1((int)random(width), (int)random(height/3*2));
+  eggman2 = new Enemy1((int)random(width), (int)random(height/3*2));
+}
+
+//Gets called by processing whenever a key is pressed
+void keyPressed(KeyEvent e) {
+  //passes it to player
+  player.keyPressed(e);
+}
+
+//Gets called by processing whenever a key is released
+void keyReleased(KeyEvent e) {
+  //passes it to player
+  player.keyReleased(e);
 }

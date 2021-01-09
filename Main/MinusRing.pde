@@ -8,8 +8,8 @@ class MinusRing extends Ring {
     super();
 
     //Enemy size, speed, colour, value
-    diameter = 50;
-    speed = 9;
+    radius = 30;
+    speed = 2; //Enemy rings move twice as fast as the Gold rings/good collactable
     ringColour = color(255, 0, 0);
     value = -1; // Removes ring from total collected, instead of adding. Making it a bad collectable rather than good collectable.
   }

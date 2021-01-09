@@ -45,18 +45,18 @@ class SplashScreen {
   void remove() {
     this.hideText = true;
   }
-//Method: Starts game, removes overlay splash screen
-void startGame() {
-  gameMode = PLAYING;
-  splashScreen.remove();
-}
+  //Method: Starts game, removes overlay splash screen
+  void startGame() {
+    gameMode = PLAYING;
+    splashScreen.remove();
+  }
 
 
-//Method: Reset timer and score
-void resetGame() {
-  gameTimer.reset();
-  score = 0;
-}
+  //Method: Reset timer and score
+  void resetGame() {
+    gameTimer.reset();
+    score = 0;
+  }
 
   //Method: At end of game, display this.
   void timesUp() {

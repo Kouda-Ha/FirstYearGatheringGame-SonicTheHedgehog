@@ -1,15 +1,18 @@
 //Static background image, originally scrolling but changed to the town image as the appearance improved overall
 
 class Background {
+  private PImage picture;
+  public Background() {
+    //Background image
+    picture = loadImage("backGround.png");
+  }
 
   public void drawBackground()
   {
-    //Background image
-    background = loadImage("backGround.png");
-    
+
     //Size it to fit screen and positioned
-    background.resize(width, height);
-    image(background, 0, y);
-    image(background, 0, y+background.height);
+    picture.resize(width, height);
+    image(picture, 0, y);
+    image(picture, 0, y+picture.height);
   }
 }
