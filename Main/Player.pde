@@ -65,7 +65,7 @@ class Player extends Collidable{
     return img5.height; //(idle2 image5)
   }
   // this one being function returns value
-  boolean crash(Enemy1 enemy) {
+  boolean crash(EnemyEggman enemy) {
     return abs(this.x-enemy.x) < 91 && abs(this.y - enemy.y) < 44;
   }
 

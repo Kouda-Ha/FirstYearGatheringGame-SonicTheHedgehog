@@ -16,13 +16,19 @@ class Collidable {
     }
   }
 
-  boolean collisionTest(Collidable otherThing) {
+  float distance(Collidable otherThing) {
     // get the distance between this thing and the other thing.
-    // if the distance is smaller than our radius + other thing's radius, there is a collision
     float vecX = (otherThing.x+otherThing.radius) - (x+radius);
     float vecY = (otherThing.y+otherThing.radius) - (y+radius);
     float distanceSquared = vecX * vecX + vecY * vecY;
     float distance = sqrt(distanceSquared); // because pythagoras theorem
+
+    return distance;
+  }
+
+  boolean collisionTest(Collidable otherThing) {
+    // if the distance is smaller than our radius + other thing's radius, there is a collision
+    float distance = distance(otherThing);
 
     if (distance < otherThing.radius + radius) {
       hitboxColour = color(250, 0, 0);

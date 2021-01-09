@@ -1,6 +1,6 @@
 //Enemy2 is the Ladybird type enemy from Sonic, sprite sheet is referenced in the READ ME file and below
 //One frame is https://sonicdashcom.files.wordpress.com/2016/04/motobug_sprite_1_right.png then the other two are edited versions by me, so it becomes an animation when played together
-class Enemy2 extends Collidable {
+class EnemyLadybird extends Collidable {
 
   int counter;
 
@@ -9,7 +9,7 @@ class Enemy2 extends Collidable {
   PImage img2 = loadImage("enemy201.png");
   PImage img3 = loadImage("enemy203.png");
 
-  Enemy2(int x, int y) {
+  EnemyLadybird(int x, int y) {
     this.x = x;
     this.y = y;
     this.radius = 40;

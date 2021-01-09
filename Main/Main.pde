@@ -14,9 +14,9 @@ int spawnTimer = 0;
 int score;
 Score scorePlayer;
 Player player;
-Enemy1 eggman1, eggman2; 
+EnemyEggman eggman1, eggman2; 
 ArrayList<Ring> myRings = new ArrayList();
-ArrayList<Enemy2> enemy2List = new ArrayList();
+ArrayList<EnemyLadybird> enemyLadybirdList = new ArrayList();
 int time;
 int wait;
 int globalSpeed;
@@ -40,10 +40,10 @@ void setup() {
 
   //loops 3 times = 3 iterations
   for (int i = 0; i < 3; i++) {
-    enemy2List.add(new Enemy2(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
+    enemyLadybirdList.add(new EnemyLadybird(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
   }
 
-  print(enemy2List.size()); // will show size of enemy2 ladybird lists
+  print(enemyLadybirdList.size()); // will show size of enemy2 ladybird lists
   gameTimer = new Timer();
   time = millis();
   wait = 1000;
@@ -64,7 +64,7 @@ void draw() {
       spawnTimer++; //add 1 to spawn timer
     }
     if (spawnTimer%60 == 0) { //% modulator
-      enemy2List.add(new Enemy2(width, (int)random(380))); //so random int is casting, adding Ladybird enemy to game
+      enemyLadybirdList.add(new EnemyLadybird(width, (int)random(380))); //so random int is casting, adding Ladybird enemy to game
     }
     drawBackground.drawBackground();
     player.render();
@@ -73,8 +73,8 @@ void draw() {
     gameTimer.update();
     ringGeneration();
 
-    for (int i=0; i<enemy2List.size(); i++) {
-      Enemy2 currentEnemy2 = enemy2List.get(i);
+    for (int i=0; i<enemyLadybirdList.size(); i++) {
+      EnemyLadybird currentEnemy2 = enemyLadybirdList.get(i);
       //   text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
       currentEnemy2.collisionTest(player);
       currentEnemy2.update();
@@ -155,8 +155,8 @@ void mouseClicked() {
   player.render();
   player.x = width/2;
   player.y = height-50;
-  eggman1 = new Enemy1((int)random(width), (int)random(height/3*2));
-  eggman2 = new Enemy1((int)random(width), (int)random(height/3*2));
+  eggman1 = new EnemyEggman((int)random(width), (int)random(height/3*2));
+  eggman2 = new EnemyEggman((int)random(width), (int)random(height/3*2));
 }
 
 //Gets called by processing whenever a key is pressed
