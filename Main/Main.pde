@@ -25,6 +25,7 @@ boolean drawHitBoxes = false;
 float frameTime;
 int frameTimeOld;
 
+Explosion explosion;
 
 //Setting up game
 void setup() {
@@ -43,7 +44,7 @@ void setup() {
     enemyLadybirdList.add(new EnemyLadybird(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
   }
 
-  print(enemyLadybirdList.size()); // will show size of enemy2 ladybird lists
+
   gameTimer = new Timer();
   time = millis();
   wait = 1000;
@@ -51,6 +52,8 @@ void setup() {
   //polymorphism example, Rings (Gold OR Minus) added to list as they are created
   myRings = new ArrayList<Ring>();
   scorePlayer = new Score();
+  
+  explosion = new Explosion(500,500, 30);
 }  
 
 void draw() {
@@ -72,6 +75,8 @@ void draw() {
     eggman2.update(); 
     gameTimer.update();
     ringGeneration();
+    
+    explosion.render();
 
     for (int i=0; i<enemyLadybirdList.size(); i++) {
       EnemyLadybird currentEnemy2 = enemyLadybirdList.get(i);

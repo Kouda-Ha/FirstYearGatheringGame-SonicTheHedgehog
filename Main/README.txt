@@ -21,4 +21,6 @@ REFERENCES:
 	Level Design:
 		Background image reference: https://www.1001freedownloads.com/free-clipart/road-in-perspective
 		Edited with a Dr Eggman on top, his photo: https://www.vhv.rs/viewpic/hbxhxih_sonic-spinball-dr-robotnik-png-download-sonic-3/
-
+		
+	Other:
+		Explosion sprite sheet from: https://www.spriters-resource.com/fullview/8869/
