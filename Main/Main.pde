@@ -14,9 +14,8 @@ int spawnTimer = 0;
 int score;
 Score scorePlayer;
 Player player;
-EnemyEggman eggman1, eggman2; 
 ArrayList<Ring> myRings = new ArrayList();
-ArrayList<EnemyLadybird> enemyLadybirdList = new ArrayList();
+ArrayList<EnemyBase> enemyBaseList;
 int time;
 int wait;
 int globalSpeed;
@@ -27,6 +26,7 @@ int frameTimeOld;
 
 ArrayList<Bird> birbs = new ArrayList();
 int birdCount = 0;
+float timeSinceLastLadybird;
 
 //Setting up game
 void setup() {
@@ -57,52 +57,57 @@ void draw() {
 
   splashScreen.update();
   if (gameMode == PLAYING) {
-    if (spawnTimer <= 0) {
-      spawnTimer++; //add 1 to spawn timer
-    }
-    if (spawnTimer%60 == 0) { //% modulator
-      enemyLadybirdList.add(new EnemyLadybird(width, (int)random(380))); //so random int is casting, adding Ladybird enemy to game
-    }
+
     drawBackground.drawBackground();
     player.render();
-    eggman1.update();
-    eggman2.update(); 
     gameTimer.update();
     ringGeneration();
+
+    //update all enemies 
+    for (int i = enemyBaseList.size()-1; i >=0; i--) {
+      EnemyBase currentEnemy = enemyBaseList.get(i);
+      currentEnemy.update();
+      if (currentEnemy.destructive() == false && currentEnemy.collisionTest(player) == true) {
+        currentEnemy.explode();
+      }
+      //removes a culled enemy and spawns birds in their place
+      if (currentEnemy.cull() == true) {
+        birbs.add(new Bird(currentEnemy.x, currentEnemy.y));
+        birdCount = birbs.size();
+
+        enemyBaseList.remove(currentEnemy);
+      }
+    }
+    //Spawn new Ladybirds if less than 5 enemies on screen, including eggmen && if fewer than 5 birds
+    if (millis()/1000.0 > timeSinceLastLadybird + 12 && enemyBaseList.size() < 5 && birdCount <= 4) {
+      enemyBaseList.add(new EnemyLadybird(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
+      timeSinceLastLadybird = millis()/1000.0;
+    }
+
 
     for (int i=0; i<birbs.size(); i++) {
       Bird currentBirb = birbs.get(i);
       currentBirb.update(i);
-      if (eggman1.exploding() == false && eggman1.collisionTest(currentBirb)) {
-        eggman1.explode();
-        birbs.remove(currentBirb);
-        birdCount = birbs.size();
-      }
-      if (eggman2.exploding() == false && eggman2.collisionTest(currentBirb)) {
-        eggman2.explode();
-        birbs.remove(currentBirb);
-        birdCount = birbs.size();
-      }
-    }
-    for (int i=0; i<enemyLadybirdList.size(); i++) {
-      EnemyLadybird currentLadybird = enemyLadybirdList.get(i);
-      //   text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
-      if (currentLadybird.collisionTest(player) == true) {
-        currentLadybird.explode();
-      }
-      currentLadybird.update();
-      if (currentLadybird.cull() == true) {
-        birbs.add(new Bird(currentLadybird.x, currentLadybird.y));
-        birdCount = birbs.size();
-
-        enemyLadybirdList.remove(currentLadybird);
+      for (int enemyNum = enemyBaseList.size()-1; enemyNum >=0; enemyNum--) {
+        EnemyBase currentEnemy = enemyBaseList.get(enemyNum);
+        if (currentEnemy.exploding() == false && currentEnemy.collisionTest(currentBirb)) {
+          currentEnemy.explode();
+          if (currentEnemy.destructive() == true) {
+            birbs.remove(currentBirb);
+            birdCount = birbs.size();
+          }
+        }
       }
     }
     splashScreen.update();
 
-    //IF you touch Eggman clones, game will end
-    if (eggman1.exploding() == false && eggman1.collisionTest(player) || eggman2.exploding() == false && eggman2.collisionTest(player)) {
-      splashScreen.gameOver();
+    //IF you touch destructive enemies (Eggmen), game will end
+    for (int i = enemyBaseList.size()-1; i >= 0; i--) {
+      EnemyBase currentEnemy = enemyBaseList.get(i);
+      //
+      if (currentEnemy.destructive() == true && currentEnemy.exploding() == false && currentEnemy.collisionTest(player)) {
+        splashScreen.gameOver();
+      }
     }
   }
 
@@ -174,18 +179,19 @@ void reset() {
   player.render();
   player.x = width/2;
   player.y = height-50;
-  eggman1 = new EnemyEggman((int)random(width), (int)random(height/3*2));
-  eggman2 = new EnemyEggman((int)random(width), (int)random(height/3*2));
   birbs = new ArrayList();
   birbs.add(new Bird(width/2, height+50));
   birdCount = birbs.size();
 
-  enemyLadybirdList = new ArrayList();
-  //loops 3 times = 3 iterations
-  for (int i = 0; i < 3; i++) {
-    enemyLadybirdList.add(new EnemyLadybird(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
-  }
+  timeSinceLastLadybird = millis()/1000.0;
+
+  //Polymorphism: List of Eggmen and Ladybirds 
+  enemyBaseList = new ArrayList();
+  enemyBaseList.add(new EnemyEggman((int)random(width), (int)random(height/3*2)));
+  enemyBaseList.add(new EnemyEggman((int)random(width), (int)random(height/3*2)));
 }
+
+
 void mouseClicked() {
   reset();
 }

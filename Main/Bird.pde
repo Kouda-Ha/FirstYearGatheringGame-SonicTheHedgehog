@@ -6,7 +6,7 @@ class Bird extends Collidable {
 
   PVector heading;
 
-  EnemyEggman eggmanTarget;
+  EnemyBase eggmanTarget;
 
   //constructor
   Bird(float x, float y) {
@@ -18,10 +18,14 @@ class Bird extends Collidable {
   void update(int birdNum) {
     if (eggmanTarget == null) {
       //search for new targets
-      if (eggman1.exploding() == false && this.distance(eggman1) < 200) {
-        eggmanTarget = eggman1;
-      } else if (eggman2.exploding() == false && this.distance(eggman2) < 200) {
-        eggmanTarget = eggman2;
+
+      for (int enemyNum = enemyBaseList.size()-1; enemyNum >=0; enemyNum--) {
+
+        EnemyBase currentEnemy = enemyBaseList.get(enemyNum);
+        if (currentEnemy.destructive() == true && currentEnemy.exploding() == false && this.distance(currentEnemy) <200 ) {
+          eggmanTarget = currentEnemy;
+          break;
+        }
       }
     } else if (eggmanTarget.exploding() == true) {
       eggmanTarget = null;

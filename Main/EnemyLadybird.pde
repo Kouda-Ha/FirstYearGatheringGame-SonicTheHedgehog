@@ -21,7 +21,9 @@ class EnemyLadybird extends EnemyBase {
       return false;
     }
   }
-
+  boolean destructive() {
+    return false;
+  }
   // X and Y declared so it apears to be wiggling randomly across the level
   // The ladybirds will get to the bottom of the screen then teleport back to the top of the screen
   // giving the appearance of despawning and respawning but it is always the same 5 ladybirds enemies.

@@ -17,6 +17,9 @@ class EnemyBase extends Collidable {
     return explosion.exploding;
   }
 
+  boolean destructive() {
+    return true;
+  }
 
   boolean cull() {
     return false;
