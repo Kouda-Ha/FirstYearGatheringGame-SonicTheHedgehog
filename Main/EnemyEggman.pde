@@ -2,11 +2,8 @@
 // Dr Eggman (Enemy1) Sprite from: https://www.seekpng.com/idown/u2q8r5w7a9r5q8e6_robotnik-sonic-1-eggman-sprites/  
 // In this game, the Dr Eggman enemy are clones of him, as he's in the background image
 
-class EnemyEggman extends Collidable {
-
+class EnemyEggman extends EnemyBase {
   int counter;
-
-  Explosion explosion;
 
   //The animation slides for Enemy1, enemy.
   //  PImage img1 = loadImage("enemy101.png");
@@ -17,17 +14,7 @@ class EnemyEggman extends Collidable {
 
   //constructor
   EnemyEggman(float x, float y) {
-    this.x = x;
-    this.y = y;
-    radius = 30;
-    explosion = new Explosion(x, y, radius);
-  }
-  void explode() {
-    explosion.start();
-  }
-
-  boolean exploding() {
-    return explosion.exploding;
+    super(x, y, 30);
   }
 
   void update() {
@@ -50,7 +37,6 @@ class EnemyEggman extends Collidable {
         x -=speed * (random(200, 1000)/1000.0);
       }
     } else if (explosion.exploding == true) {
-      explosion.position(x, y);
       float speed = globalSpeed*frameTime*0.5;
       x -=speed * (random(200, 1000)/1000.0);
       y +=speed * (random(200, 1000)/1000.0);
@@ -61,10 +47,10 @@ class EnemyEggman extends Collidable {
       y = random(height/3*2);
       explosion.stop();
     }
+    super.move();
   }
   //Render to screen, make Dr Eggman clones fly his ship and both his expression and the ship change slightly every 10 frames, making him animated
   void render() {
-    super.render();
     if (explosion.exploding == false) {
       if (counter < 10) { 
         //  image(img1, x, y);
@@ -83,7 +69,6 @@ class EnemyEggman extends Collidable {
       image(img5, x, y);
     }
     counter++;
-
-    explosion.render();
+    super.render();
   }
 }
