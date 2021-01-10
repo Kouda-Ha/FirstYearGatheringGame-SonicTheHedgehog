@@ -9,7 +9,7 @@ class Ring extends Collidable {
 
   //First constructor no parameters: Set default x and y position
   Ring() { 
-    this(random(0, width), 0);
+    this(random(0, width), -60);
   }
 
   //Second constructor two parameters: x and y 
@@ -40,7 +40,7 @@ class Ring extends Collidable {
 
   //Method: Update rings
   void update() {
-    
+
     //Remove ring if out of bounds
     if (y > height + radius) {
       myRings.remove(this);
@@ -49,10 +49,10 @@ class Ring extends Collidable {
       //Else add speed/don't despawn
       this.y += frameTime * globalSpeed*speed;
     }
-    
+
     //Ring colour = ringColor. Gold's is set to yellow, MinusRing is set to red.
     super.render();
-    
+
     ellipseMode(RADIUS); 
     stroke(this.ringColour);
     strokeWeight(15);
