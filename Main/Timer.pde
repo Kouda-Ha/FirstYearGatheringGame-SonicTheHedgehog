@@ -16,7 +16,7 @@ class Timer {
 
     //time in milliseconds
     this.startTime = millis();
-    this.totalTime= 15000; // 6000ms = 60s        //CHANGE BACK TO 60 ECT AFTER TEST FINAL TEST 
+    this.totalTime= 60000; // 60000ms = 60s
     this.timeUsed = this.totalTime;
   }
 

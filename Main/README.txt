@@ -13,9 +13,9 @@ Any references and/or notes needed will go here
 
 REFERENCES:
 	Characters:	
-		Dr Eggman (Enemy1) Sprite from: https://www.seekpng.com/idown/u2q8r5w7a9r5q8e6_robotnik-sonic-1-eggman-sprites/	
-		Enemy bug (Enemy2) one frame from a website and then I edited it twice to make an animation, original sprite from: https://sonicdashcom.files.wordpress.com/2016/04/motobug_sprite_1_right.png
-
+		Dr Eggman (EnemyEggman) Sprite from: https://www.seekpng.com/idown/u2q8r5w7a9r5q8e6_robotnik-sonic-1-eggman-sprites/	
+		Enemy bug (EnemyLadybird) one frame from a website and then I edited it twice to make an animation, original sprite from: https://sonicdashcom.files.wordpress.com/2016/04/motobug_sprite_1_right.png
+ 
 		Tails (Player) Sprite from: https://www.deviantart.com/winstontheechidna/art/Sonic-XG-Tails-Sprite-Sheet-698275178
 
 	Level Design:
@@ -24,3 +24,4 @@ REFERENCES:
 		
 	Other:
 		Explosion sprite sheet from: https://www.spriters-resource.com/fullview/8869/
+		Birds for extra life system: http://www.sonicgalaxy.net/wp-content/img/sprites/ds/sr/animals-2.png

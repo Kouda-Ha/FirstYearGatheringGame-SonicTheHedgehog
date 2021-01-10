@@ -25,7 +25,9 @@ boolean drawHitBoxes = false;
 float frameTime;
 int frameTimeOld;
 
-Explosion explosion;
+Bird bird1;
+Bird bird2;
+int birdCount = 2;
 
 //Setting up game
 void setup() {
@@ -38,6 +40,8 @@ void setup() {
   splashScreen = new SplashScreen();
   drawBackground = new Background();
   player = new Player(width/2, height-50);  
+  bird1 = new Bird();
+  bird2 = new Bird();
 
   //loops 3 times = 3 iterations
   for (int i = 0; i < 3; i++) {
@@ -53,7 +57,6 @@ void setup() {
   myRings = new ArrayList<Ring>();
   scorePlayer = new Score();
   
-  explosion = new Explosion(500,500, 30);
 }  
 
 void draw() {
@@ -75,8 +78,10 @@ void draw() {
     eggman2.update(); 
     gameTimer.update();
     ringGeneration();
-    
-    explosion.render();
+
+          bird1.render(1);
+          bird2.render(2);
+
 
     for (int i=0; i<enemyLadybirdList.size(); i++) {
       EnemyLadybird currentEnemy2 = enemyLadybirdList.get(i);
@@ -107,6 +112,7 @@ void draw() {
     currentRing.update();
   }
   scorePlayer.update();
+
 }
 
 
