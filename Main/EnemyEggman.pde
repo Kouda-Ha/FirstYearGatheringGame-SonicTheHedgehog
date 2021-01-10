@@ -46,18 +46,20 @@ class EnemyEggman extends Collidable {
         this.y += vector.y*globalSpeed*frameTime*0.9;
       } else {  
 
-        if (x>0-this.radius*2) {
-          float speed = globalSpeed*frameTime*0.9;
-          x -=speed * (random(200, 1000)/1000.0);
-        } else {
-          x=width;
-        }
+        float speed = globalSpeed*frameTime*0.9;
+        x -=speed * (random(200, 1000)/1000.0);
       }
     } else if (explosion.exploding == true) {
       explosion.position(x, y);
-      float speed = globalSpeed*frameTime*0.9;
+      float speed = globalSpeed*frameTime*0.5;
       x -=speed * (random(200, 1000)/1000.0);
       y +=speed * (random(200, 1000)/1000.0);
+    }
+
+    if (x<0-this.radius*2) {
+      x=width;
+      y = random(height/3*2);
+      explosion.stop();
     }
   }
   //Render to screen, make Dr Eggman clones fly his ship and both his expression and the ship change slightly every 10 frames, making him animated

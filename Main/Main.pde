@@ -41,12 +41,6 @@ void setup() {
   player = new Player(width/2, height-50);  
 
 
-  //loops 3 times = 3 iterations
-  for (int i = 0; i < 3; i++) {
-    enemyLadybirdList.add(new EnemyLadybird(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
-  }
-
-
   gameTimer = new Timer();
   time = millis();
   wait = 1000;
@@ -81,9 +75,13 @@ void draw() {
       currentBirb.update(i);
       if (eggman1.exploding() == false && eggman1.collisionTest(currentBirb)) {
         eggman1.explode();
+        birbs.remove(currentBirb);
+        birdCount = birbs.size();
       }
       if (eggman2.exploding() == false && eggman2.collisionTest(currentBirb)) {
         eggman2.explode();
+        birbs.remove(currentBirb);
+        birdCount = birbs.size();
       }
     }
     for (int i=0; i<enemyLadybirdList.size(); i++) {
@@ -170,7 +168,7 @@ void collectRing(Ring collectRing) {
 }
 
 //Method: Clicking will start and/or restart the timer/game score/game
-void mouseClicked() {
+void reset() {
   splashScreen.startGame();
   splashScreen.resetGame();
   player.render();
@@ -181,8 +179,16 @@ void mouseClicked() {
   birbs = new ArrayList();
   birbs.add(new Bird(width/2, height+50));
   birdCount = birbs.size();
-}
 
+  enemyLadybirdList = new ArrayList();
+  //loops 3 times = 3 iterations
+  for (int i = 0; i < 3; i++) {
+    enemyLadybirdList.add(new EnemyLadybird(width, (int)random(300))); //so int rand is casting, we're adding Ladybirds to level
+  }
+}
+void mouseClicked() {
+  reset();
+}
 //Gets called by processing whenever a key is pressed
 void keyPressed(KeyEvent e) {
   //passes it to player
