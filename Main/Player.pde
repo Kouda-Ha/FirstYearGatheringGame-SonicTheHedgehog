@@ -1,7 +1,7 @@
 // Player is Tails sprite, referenced in READ ME and below
 // Sprite sheet used: https://www.deviantart.com/winstontheechidna/art/Sonic-XG-Tails-Sprite-Sheet-698275178
 
-class Player extends Collidable{
+class Player extends Collidable {
 
   //The animation slides for Tails, player. Pressing keys changes which is shown.
   PImage img0 = loadImage("up.png");
@@ -16,6 +16,7 @@ class Player extends Collidable{
   boolean keyLeft;
   boolean keyRight;
 
+  //constructor
   Player(int x, int y)
   {
     this.x = x;

@@ -2,6 +2,7 @@
 
 class Background {
   private PImage picture;
+  //constructor
   public Background() {
     //Background image
     picture = loadImage("backGround.png");

@@ -6,21 +6,27 @@ class Bird extends Collidable {
 
   PVector heading;
 
-  Bird() {
+  //constructor
+  Bird(float x, float y) {
     radius = 8;
-    x = 500;
-    y = 500;
+    this.x = x;
+    this.y = y;
   }
 
-  void render(int birdNum) {
+  void update(int birdNum) {
     move(birdNum);
+    render();
+  }
+
+
+  void render() {
     super.render();
     if (heading.x < 0) {
       image(imgL, x, y);
     } else {
       image(imgR, x, y);
     }
-}
+  }
 
   void move(int birdNum) {
 

@@ -6,7 +6,7 @@ class Score {
   int scoreTextWidth; //score box width
   int scoreTextHeight; //score box height
 
-  //create constructor
+  //constructor
   Score() {   
 
     //initialize attributes

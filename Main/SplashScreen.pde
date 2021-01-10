@@ -7,7 +7,7 @@ class SplashScreen {
   String splashScreenText;
   boolean hideText; 
 
-  //Create constructor
+  //Constructor
   SplashScreen() {
     //initialize attributes
     this.xPosGameTitle = width/2;
@@ -16,7 +16,7 @@ class SplashScreen {
     this.yPosHowToPlay = height/2;
 
     //INSTRUCTIONS
-    this.splashScreenText= "Sonic had his rings stolen! How to Play: Move with arrow keys, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings and his Ladybirds or your score will lessen. Avoid his clones or it's game over! You have 60 seconds to try. Clicking the mouse again will restart the level.";
+    this.splashScreenText= "Sonic had his rings stolen! How to Play: Move with arrow keys, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings or your score will lessen. Avoid his clones or it's game over! Attack the Ladybirds to gain a friend! You have 60 seconds to try. Clicking the mouse again will restart the level.";
     this.hideText = false; //text will be shown
   }
 

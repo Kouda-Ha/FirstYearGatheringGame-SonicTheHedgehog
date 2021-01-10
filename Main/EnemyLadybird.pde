@@ -9,10 +9,26 @@ class EnemyLadybird extends Collidable {
   PImage img2 = loadImage("enemy201.png");
   PImage img3 = loadImage("enemy203.png");
 
+  Explosion explosion;
+
+  //constructor
   EnemyLadybird(int x, int y) {
     this.x = x;
     this.y = y;
     this.radius = 40;
+    explosion = new Explosion(x, y, radius);
+  }
+
+  void explode() {
+    explosion.start();
+  }
+
+  boolean cull() {
+    if (explosion.exploding == true && explosion.timeExploding() > 3.0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void update() {
@@ -23,20 +39,24 @@ class EnemyLadybird extends Collidable {
   // The ladybirds will get to the bottom of the screen then teleport back to the top of the screen
   // giving the appearance of despawning and respawning but it is always the same 5 ladybirds enemies.
   void move() {
-    if (x > -img1.width && y < height) {
-      float speed = globalSpeed*frameTime*0.9;
-      x -=speed * (random(200, 1000)/1000.0);
-      y +=speed * (random(200, 1000)/1000.0);
-    } else {
+    if (explosion.exploding == false) {
+      if (x > -img1.width && y < height) {
+        float speed = globalSpeed*frameTime*0.9;
+        x -=speed * (random(200, 1000)/1000.0);
+        y +=speed * (random(200, 1000)/1000.0);
+      } else {
 
-      x = width;
-      y =0;
+        x = width;
+        y =0;
+      }
     }
+    explosion.position(x, y);
   }
+
 
   //Render to screen, play images every 10 frames to make ladybird appear to blink and become wide-eyed
   void render() {
-  super.render();
+    super.render();
     if (counter < 10) { 
       image(img1, x, y);
     } else if (counter < 20) { 
@@ -48,5 +68,6 @@ class EnemyLadybird extends Collidable {
       counter=0;
     }
     counter++;
+    explosion.render();
   }
 }

@@ -25,9 +25,8 @@ boolean drawHitBoxes = false;
 float frameTime;
 int frameTimeOld;
 
-Bird bird1;
-Bird bird2;
-int birdCount = 2;
+ArrayList<Bird> birbs = new ArrayList();
+int birdCount = 0;
 
 //Setting up game
 void setup() {
@@ -40,8 +39,7 @@ void setup() {
   splashScreen = new SplashScreen();
   drawBackground = new Background();
   player = new Player(width/2, height-50);  
-  bird1 = new Bird();
-  bird2 = new Bird();
+
 
   //loops 3 times = 3 iterations
   for (int i = 0; i < 3; i++) {
@@ -56,7 +54,6 @@ void setup() {
   //polymorphism example, Rings (Gold OR Minus) added to list as they are created
   myRings = new ArrayList<Ring>();
   scorePlayer = new Score();
-  
 }  
 
 void draw() {
@@ -79,15 +76,24 @@ void draw() {
     gameTimer.update();
     ringGeneration();
 
-          bird1.render(1);
-          bird2.render(2);
-
+    for (int i=0; i<birbs.size(); i++) {
+      Bird currentBirb = birbs.get(i);
+      currentBirb.update(i);
+    }
 
     for (int i=0; i<enemyLadybirdList.size(); i++) {
-      EnemyLadybird currentEnemy2 = enemyLadybirdList.get(i);
+      EnemyLadybird currentLadybird = enemyLadybirdList.get(i);
       //   text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
-      currentEnemy2.collisionTest(player);
-      currentEnemy2.update();
+      if (currentLadybird.collisionTest(player) == true) {
+        currentLadybird.explode();
+      }
+      currentLadybird.update();
+      if (currentLadybird.cull() == true) {
+        birbs.add(new Bird(currentLadybird.x, currentLadybird.y));
+        birdCount = birbs.size();
+
+        enemyLadybirdList.remove(currentLadybird);
+      }
     }
     splashScreen.update();
 
@@ -112,7 +118,6 @@ void draw() {
     currentRing.update();
   }
   scorePlayer.update();
-
 }
 
 
@@ -168,12 +173,19 @@ void mouseClicked() {
   player.y = height-50;
   eggman1 = new EnemyEggman((int)random(width), (int)random(height/3*2));
   eggman2 = new EnemyEggman((int)random(width), (int)random(height/3*2));
+  birbs = new ArrayList();
+  birbs.add(new Bird(width/2, height+50));
+  birdCount = birbs.size();
 }
 
 //Gets called by processing whenever a key is pressed
 void keyPressed(KeyEvent e) {
   //passes it to player
   player.keyPressed(e);
+  if (e.getKey()== 'b' ) { 
+    birbs.add(new Bird(width/2, height+50));
+    birdCount = birbs.size();
+  }
 }
 
 //Gets called by processing whenever a key is released

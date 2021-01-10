@@ -2,6 +2,7 @@
 //GoldRing is an collectable in ring form, it inherits from Class Ring and adds a ring to the total, instead of taking away to the total.
 
 class GoldRing extends Ring {
+  //constructor
   GoldRing() {
 
     super();

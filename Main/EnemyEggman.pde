@@ -12,6 +12,7 @@ class EnemyEggman extends Collidable {
   PImage img3 = loadImage("enemy103.png");
   PImage img4 = loadImage("enemy104.png");
 
+  //constructor
   EnemyEggman(float x, float y) {
     this.x = x;
     this.y = y;

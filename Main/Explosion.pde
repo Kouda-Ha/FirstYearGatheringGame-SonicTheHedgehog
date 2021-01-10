@@ -8,29 +8,52 @@ class Explosion {
   PImage explosionImg3 = loadImage("explosion3.png");
   PImage explosionImg4 = loadImage("explosion4.png");
 
+  boolean exploding = false;
+
   ArrayList<ExplosionBits> explosionBitsList = new ArrayList();
   float lastStartTime;
+  float explodingStart;
+
 
   final int totalBits = 10;
   final float interval = 0.1f;
 
-
+  //constructor
   Explosion(float x, float y, float range) {
-    this.x = x;
-    this.y = y;
+    this.x = x+ range;
+    this.y = y + range;
     this.range = range;
     for (int i = 0; i<totalBits; i++) {
       explosionBitsList.add(new ExplosionBits());
     }
   }
+  void position(float x, float y) {
+    this.x = x +range;
+    this.y = y +range;
+  }
+
+  void start() {
+    exploding = true;
+    explodingStart = millis()/1000.0;
+  }
+
+  void stop() {
+    exploding = false;
+  }
+
+  float timeExploding() {
+    return (millis()/1000.0) - explodingStart;
+  }
+
   void render() {
+
     float time = millis() / 1000.0;
     for (int bit = explosionBitsList.size()-1; bit >= 0; bit--) {
       ExplosionBits explosionBit = explosionBitsList.get(bit);
 
       // if available, reset a bit once every interval
-      if (explosionBit.done == true && time > lastStartTime + interval) {
-        explosionBit.reset(random(x-range,x+range), random(y-range,y+range));
+      if (exploding == true && explosionBit.done == true && time > lastStartTime + interval) {
+        explosionBit.reset(random(x-range, x+range), random(y-range, y+range));
         lastStartTime = time;
       }
 

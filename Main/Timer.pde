@@ -12,6 +12,8 @@ class Timer {
   int x;
   int y;
 
+
+  //constructor
   Timer() {
 
     //time in milliseconds
