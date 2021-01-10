@@ -1,12 +1,12 @@
 //HOW TO PLAY / SPLASH SCREEN 
-class SplashScreen { 
+class SplashScreen extends Background { 
 
   //declare attributes of Game Title and "How to Play"
   int xPosGameTitle, yPosGameTitle; 
   int xPosHowToPlay, yPosHowToPlay; 
   String splashScreenText;
   boolean hideText; 
-
+  PImage splashScreenImage;
   //Constructor
   SplashScreen() {
     //initialize attributes
@@ -24,12 +24,12 @@ class SplashScreen {
     if (!this.hideText) {
 
       //A background colour for before game start
-      background(211, 211, 211);
 
-      //text colour, position, size, text
-      fill(0); 
+      drawSplash();
+
+
       textAlign(CENTER); 
-
+      fill(0);
       //Game title, top centre.
       textSize(50); 
       text("Rings for Sonic!", this.xPosGameTitle, this.yPosGameTitle); 
