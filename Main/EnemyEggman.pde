@@ -6,17 +6,28 @@ class EnemyEggman extends Collidable {
 
   int counter;
 
+  Explosion explosion;
+
   //The animation slides for Enemy1, enemy.
   //  PImage img1 = loadImage("enemy101.png");
   PImage img2 = loadImage("enemy102.png");
   PImage img3 = loadImage("enemy103.png");
   PImage img4 = loadImage("enemy104.png");
+  PImage img5 = loadImage("enemy105.png");
 
   //constructor
   EnemyEggman(float x, float y) {
     this.x = x;
     this.y = y;
     radius = 30;
+    explosion = new Explosion(x, y, radius);
+  }
+  void explode() {
+    explosion.start();
+  }
+
+  boolean exploding() {
+    return explosion.exploding;
   }
 
   void update() {
@@ -27,39 +38,50 @@ class EnemyEggman extends Collidable {
   // The Eggmen clones will get to the far left side of the screen then teleport back to the right side of the screen
   // giving the appearance of despawning and respawning but it is always the same 2 Dr Eggmen clone enemies.
   void move() {
+    if (explosion.exploding == false) {
+      if (this.distance(player) < 200) {
+        PVector vector = new PVector(player.x-this.x, player.y-this.y);
+        vector.normalize();
+        this.x += vector.x*globalSpeed*frameTime*0.9;
+        this.y += vector.y*globalSpeed*frameTime*0.9;
+      } else {  
 
-    if (this.distance(player) < 200) {
-      PVector vector = new PVector(player.x-this.x, player.y-this.y);
-      vector.normalize();
-      this.x += vector.x*globalSpeed*frameTime*0.9;
-      this.y += vector.y*globalSpeed*frameTime*0.9;
-    } else {    
-
-      if (x>0-this.radius*2) {
-        float speed = globalSpeed*frameTime*0.9;
-        x -=speed * (random(200, 1000)/1000.0);
-      } else {
-        x=width;
+        if (x>0-this.radius*2) {
+          float speed = globalSpeed*frameTime*0.9;
+          x -=speed * (random(200, 1000)/1000.0);
+        } else {
+          x=width;
+        }
       }
+    } else if (explosion.exploding == true) {
+      explosion.position(x, y);
+      float speed = globalSpeed*frameTime*0.9;
+      x -=speed * (random(200, 1000)/1000.0);
+      y +=speed * (random(200, 1000)/1000.0);
     }
   }
   //Render to screen, make Dr Eggman clones fly his ship and both his expression and the ship change slightly every 10 frames, making him animated
   void render() {
     super.render();
-    if (counter < 10) { 
-      //  image(img1, x, y);
-      //} else if (counter < 20) { 
-      image(img2, x, y);
-    } else if (counter < 30) { 
-      image(img3, x, y);
-    } else if (counter < 40) {
-      image(img4, x, y);
-    } else { 
-      image(img2, x, y);
+    if (explosion.exploding == false) {
+      if (counter < 10) { 
+        //  image(img1, x, y);
+        //} else if (counter < 20) { 
+        image(img2, x, y);
+      } else if (counter < 30) { 
+        image(img3, x, y);
+      } else if (counter < 40) {
+        image(img4, x, y);
+      } else { 
+        image(img2, x, y);
 
-      counter=0;
+        counter=0;
+      }
+    } else {
+      image(img5, x, y);
     }
-
     counter++;
+
+    explosion.render();
   }
 }

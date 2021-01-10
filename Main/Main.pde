@@ -79,8 +79,13 @@ void draw() {
     for (int i=0; i<birbs.size(); i++) {
       Bird currentBirb = birbs.get(i);
       currentBirb.update(i);
+      if (eggman1.exploding() == false && eggman1.collisionTest(currentBirb)) {
+        eggman1.explode();
+      }
+      if (eggman2.exploding() == false && eggman2.collisionTest(currentBirb)) {
+        eggman2.explode();
+      }
     }
-
     for (int i=0; i<enemyLadybirdList.size(); i++) {
       EnemyLadybird currentLadybird = enemyLadybirdList.get(i);
       //   text(i, currentEnemy2.x, currentEnemy2.y-30); // For TESTING, this shows the spawn number of the ladybirds (enemy2)
@@ -98,7 +103,7 @@ void draw() {
     splashScreen.update();
 
     //IF you touch Eggman clones, game will end
-    if (eggman1.collisionTest(player) || eggman2.collisionTest(player)) {
+    if (eggman1.exploding() == false && eggman1.collisionTest(player) || eggman2.exploding() == false && eggman2.collisionTest(player)) {
       splashScreen.gameOver();
     }
   }
