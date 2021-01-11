@@ -1,3 +1,7 @@
+// The bird is an 'Extra life' type of system, they will destroy enemies so you aren't killed/game over
+// They extend collidable as they collide with enemies
+// Please check README.txt and 'Picture References' in the Zip folder for the references to the sprites/pictures used (Bird: Reference 5)
+
 
 class Bird extends Collidable {
 

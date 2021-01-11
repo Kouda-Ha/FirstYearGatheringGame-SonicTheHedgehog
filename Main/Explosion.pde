@@ -1,24 +1,25 @@
 //All the classes and things to do with the explosion
-
+// Please check README.txt and 'Picture References' in the Zip folder for the references to the sprites/pictures used (Explosion reference: 4)
 
 class Explosion {
+
   float x, y, range;
+
+  // Animation for explosion
   PImage explosionImg1 = loadImage("explosion1.png");
   PImage explosionImg2 = loadImage("explosion2.png");
   PImage explosionImg3 = loadImage("explosion3.png");
   PImage explosionImg4 = loadImage("explosion4.png");
 
   boolean exploding = false;
-
   ArrayList<ExplosionBits> explosionBitsList = new ArrayList();
   float lastStartTime;
   float explodingStart;
 
-
   final int totalBits = 10;
   final float interval = 0.1f;
 
-  //constructor
+  // Constructor
   Explosion(float x, float y, float range) {
     this.x = x+ range;
     this.y = y + range;

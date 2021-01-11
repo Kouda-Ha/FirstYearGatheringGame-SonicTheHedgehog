@@ -1,6 +1,5 @@
-// Enemy 1 is Dr Eggman from Sonic the Hedgehog, his sprite sheet is referenced in the READ ME file and below
-// Dr Eggman (Enemy1) Sprite from: https://www.seekpng.com/idown/u2q8r5w7a9r5q8e6_robotnik-sonic-1-eggman-sprites/  
-// In this game, the Dr Eggman enemy are clones of him, as he's in the background image
+// In this game, the Dr Eggman enemy are clones of him, as he's in the background image, their aim is to chase the player (Tails) which if caught, results in game over
+// Please check README.txt and 'Picture References' in the Zip folder for the references to the sprites/pictures used (Eggman enemy reference: 1)
 
 class EnemyEggman extends EnemyBase {
   int counter;

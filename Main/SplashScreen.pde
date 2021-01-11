@@ -1,13 +1,15 @@
-//HOW TO PLAY / SPLASH SCREEN 
+//The HOW TO PLAY/Splash screen. SplashScreen inherits from BackGround.
+
 class SplashScreen extends Background { 
 
-  //declare attributes of Game Title and "How to Play"
+  // Declare attributes of Game Title and "How to Play"
   int xPosGameTitle, yPosGameTitle; 
   int xPosHowToPlay, yPosHowToPlay; 
   String splashScreenText;
   boolean hideText; 
   PImage splashScreenImage;
-  //Constructor
+
+  // Constructor
   SplashScreen() {
     //initialize attributes
     this.xPosGameTitle = width/2;
@@ -15,63 +17,63 @@ class SplashScreen extends Background {
     this.xPosHowToPlay= width/3;
     this.yPosHowToPlay = height/2;
 
-    //INSTRUCTIONS
-    this.splashScreenText= "Sonic had his rings stolen! How to Play: Move with arrow keys, collect Sonic's Gold Rings to increase the score! Avoid the Dr. Eggman's Red Rings or your score will lessen. Avoid his clones or it's game over! Attack the Ladybirds to gain a friend! You have 60 seconds to try. Clicking the mouse again will restart the level.";
+    // 'How to Play' text to overlay SplashScreen
+    this.splashScreenText= "Sonic had his rings stolen! How to Play: Move with arrow keys, collect Sonic's Gold Rings to increase the score. Avoid the Dr. Eggman's Red Rings or your rings will lessen! Avoid his clones or it's game over! Attack the Ladybirds to gain a friend! You have 60 seconds. Clicking the mouse again will restart the level. (Cheat code: If the game is too hard, pressing 'b' will incresase the birds indefinately).";
     this.hideText = false; //text will be shown
   }
 
   void update() {
     if (!this.hideText) {
 
-      //A background colour for before game start
-
+      //A background for before game start
       drawSplash();
-
 
       textAlign(CENTER); 
       fill(0);
-      //Game title, top centre.
+      // Game title position
       textSize(50); 
-      text("Rings for Sonic!", this.xPosGameTitle, this.yPosGameTitle); 
+      text("Gather Sonic's Rings!", this.xPosGameTitle, this.yPosGameTitle); 
 
-      //Game instructions, position, size, text
+      // Game 'How to play' instructions, position, size, text
       textSize(20); 
       text(this.splashScreenText, this.xPosHowToPlay, this.yPosHowToPlay, this.xPosHowToPlay, this.yPosHowToPlay);
     }
   }
 
-
-  //create method to remove text from the sketch window
+  // Create method to remove text once game starts
   void remove() {
     this.hideText = true;
   }
-  //Method: Starts game, removes overlay splash screen
+
+  // Starts game, removes overlay splash screen
   void startGame() {
     gameMode = PLAYING;
     splashScreen.remove();
   }
 
-
-  //Method: Reset timer and score
+  // Reset timer and score
   void resetGame() {
     gameTimer.reset();
     score = 0;
   }
 
-  //Method: At end of game, display this.
+  // At end of game without game over, display end of game screen
   void timesUp() {
+
+    // Eggman hasn't caught player, so player wins overlay
     if (this.hideText) {
       //Splash screen overlays once the timer ends
-      this.splashScreenText = "Game finished! Click to have another go!";
+      this.splashScreenText = "Game finished! Congratulations, you avoided Eggman's clones! Click to have another go!";
       this.hideText = false;
     }
   }
 
-  //Method: Game over
+  // At end of game with game over, display game over screen
   void gameOver() {
     if (this.hideText) {
-      //Splash screen overlays if Eggman touches you
-      this.splashScreenText = "Eggman caught you! Game over! Click your mouse to restart and try again!";
+
+      // Splash screen overlays if Eggman touches you
+      this.splashScreenText = "Oh no! Eggman caught you! It's Game Over! Click your mouse to restart and try again!";
       this.hideText = false;
       gameMode = FINISHED;
     }
